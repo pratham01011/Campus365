@@ -1,0 +1,232 @@
+/* ========= Base ========= */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+}
+
+body {
+  background: #f7f8fc;
+  color: #222;
+  line-height: 1.6;
+  scroll-behavior: smooth;
+}
+
+/* ========= Header / Navbar ========= */
+header {
+  background: linear-gradient(135deg, #954caf, #2c7a7b);
+  color: #fff;
+  padding: 1rem 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+header h1 {
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+nav ul {
+  list-style: none;
+  display: flex;
+  gap: 1.5rem;
+}
+
+nav ul li a {
+  color: #1a1919;
+  text-decoration: none;
+  font-weight: 500;
+  transition: opacity 0.2s;
+}
+
+nav ul li a:hover {
+  opacity: 0.8;
+  text-decoration: underline;
+}
+
+/* ========= Sections ========= */
+section {
+  padding: 2rem;
+  margin: 2rem auto;
+  max-width: 1000px;
+  background: #fff;
+  border-radius: 12px;
+  box-shadow: 0 6px 16px rgba(0,0,0,0.08);
+}
+
+section h2 {
+  margin-bottom: 1rem;
+  color: #954caf;
+  font-size: 1.6rem;
+  border-bottom: 2px solid #eee;
+  padding-bottom: 0.5rem;
+}
+
+/* ========= Dashboard Stats ========= */
+#dashboard > div {
+  display: inline-block;
+  width: 45%;
+  margin: 1rem 2%;
+  padding: 1rem;
+  background: #f3f0f9;
+  border-left: 4px solid #954caf;
+  border-radius: 8px;
+}
+
+#dashboard h3 {
+  font-size: 1rem;
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+#dashboard p {
+  font-weight: bold;
+  color: #2c7a7b;
+}
+
+/* ========= Lists ========= */
+ul {
+  margin-top: 0.5rem;
+  padding-left: 1.2rem;
+}
+
+ul li {
+  margin: 0.3rem 0;
+  padding: 0.6rem 0.8rem;
+  background: #f8f9fb;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  border-left: 4px solid #2c7a7b;
+}
+
+/* ========= Activities Form ========= */
+form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.8rem;
+  margin-bottom: 1.5rem;
+}
+
+form label {
+  font-weight: 600;
+  color: #444;
+}
+
+form input,
+form select,
+form textarea {
+  padding: 0.7rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 0.95rem;
+  transition: border 0.2s;
+}
+
+form input:focus,
+form select:focus,
+form textarea:focus {
+  border-color: #954caf;
+  outline: none;
+}
+
+form button {
+  padding: 0.8rem;
+  background: #954caf;
+  color: #fff;
+  border: none;
+  border-radius: 6px;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+form button:hover {
+  background: #7a3c8f;
+}
+
+/* ========= Portfolio ========= */
+#portfolio ul {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+#portfolio ul li {
+  text-align: center;
+  padding: 1rem;
+  background: #f3f0f9;
+  border-left: 4px solid #2c7a7b;
+  border-radius: 6px;
+  font-weight: 500;
+}
+
+/* ========= Documents ========= */
+#documents ul {
+  margin-top: 1rem;
+  padding-left: 0;
+  list-style: none;
+}
+
+#documents ul li {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background: #f8f9fb;
+  border-left: 4px solid #954caf;
+  margin-bottom: 0.6rem;
+  padding: 0.7rem 1rem;
+  border-radius: 6px;
+  font-size: 0.95rem;
+}
+
+#documents a {
+  color: #2c7a7b;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+#documents a:hover {
+  text-decoration: underline;
+}
+
+#documents form button {
+  background: #954caf;
+  color: #fff;
+  padding: 5px 10px;
+  border: none;
+  border-radius: 4px;
+  font-size: 0.85rem;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+#documents form button:hover {
+  background: #954caf;
+}
+
+/* ========= Settings ========= */
+#settings label {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-weight: 500;
+  margin-top: 0.8rem;
+}
+
+/* ========= Footer ========= */
+footer {
+  text-align: center;
+  padding: 1rem;
+  margin-top: 2rem;
+  background: #2c7a7b;
+  color: #fff;
+  border-top: 3px solid #954caf;
+  font-size: 0.9rem;
+}

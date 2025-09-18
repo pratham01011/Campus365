@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Faculty Dashboard</title>
+<link rel="stylesheet" href="../static/css/search_student.css">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/search_student.css') }}"></head>
+<body>
+  <header>
+    <h1>Welcome, {{ user.name }} (Faculty)</h1>
+    <a href="{{ url_for('logout') }}">Logout</a>
+  </header>
+
+  <!-- 🔹 Search Form -->
+  <section>
+    <h2>Search Students</h2>
+    <form method="GET" action="{{ url_for('faculty_dashboard') }}">
+      <input type="text" name="search" placeholder="Enter student name">
+      <button type="submit">Search</button>
+    </form>
+  </section>
+
+  <!-- 🔹 Add New Student -->
+  <section>
+    <h2>Add New Student</h2>
+    <form method="POST" action="{{ url_for('add_student') }}">
+      <label>Name</label>
+      <input type="text" name="name" required>
+      <label>Email</label>
+      <input type="email" name="email" required>
+      <label>Password</label>
+      <input type="password" name="password" required>
+      <button type="submit">Add Student</button>
+    </form>
+  </section>
+
+  <!-- 🔹 List of Students -->
+  <section>
+    <h2>Student List</h2>
+    <ul>
+      {% for student in students %}
+        <li>{{ student.name }} - {{ student.email }}</li>
+      {% else %}
+        <li>No students found.</li>
+      {% endfor %}
+    </ul>
+  </section>
+</body>
+</html>

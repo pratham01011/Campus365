@@ -1,0 +1,312 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Smart Student Hub - Dashboard</title>
+
+  <!-- ✅ External Combined CSS (Flask static path) -->
+  <link rel="stylesheet" href="{{ url_for('static', filename='css/student_dashboard_bundle.css') }}">
+
+  <style>
+    /* ✅ Smooth theme transition */
+    body {
+      transition: background-color 0.3s, color 0.3s;
+    }
+
+    /* 🌞 Light mode (default) */
+    body {
+      background-color: #ffffff;
+      color: #000000;
+    }
+
+    /* 🌙 Dark mode */
+    body.dark-mode {
+      background-color: #1a1a1a;  /* blackish grey */
+      color: #ffffff;             /* light grey text */
+    }
+
+    /* Headers */
+    body.dark-mode h1,
+    body.dark-mode h2,
+    body.dark-mode h3,
+    body.dark-mode h4,
+    body.dark-mode h5,
+    body.dark-mode h6 {
+      color: #ffffff; /* brighter than normal text */
+    }
+
+    /* Paragraphs, labels, list items */
+    body.dark-mode p,
+    body.dark-mode label,
+    body.dark-mode li {
+      color: #e0e0e0;
+    }
+
+    /* Navigation links */
+    nav ul li a {
+      color: #000000;
+      transition: color 0.3s;
+    }
+    body.dark-mode nav ul li a {
+      color: #b0cfff; /* softer light blue */
+    }
+    body.dark-mode nav ul li a:hover {
+      color: #ffffff;
+    }
+
+    /* Inputs, selects, textareas */
+    input, textarea, select {
+      background-color: #ffffff;
+      color: #000000;
+      border: 1px solid #ccc;
+      transition: background-color 0.3s, color 0.3s, border-color 0.3s;
+    }
+
+    body.dark-mode input,
+    body.dark-mode textarea,
+    body.dark-mode select {
+      background-color: #2a2a2a;
+      color: #f5f5f5;
+      border: 1px solid #555;
+    }
+
+    /* Buttons */
+    button {
+      background-color: #007bff;
+      color: #ffffff;
+      border: none;
+      padding: 8px 12px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+    button:hover {
+      background-color: #0056b3;
+    }
+
+    body.dark-mode button {
+      background-color: #333;
+      color: #f5f5f5;
+      border: 1px solid #666;
+    }
+    body.dark-mode button:hover {
+      background-color: #444;
+    }
+
+    /* Header and footer backgrounds */
+    header, footer {
+      background-color: #f5f5f5;
+      color: #000;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    body.dark-mode header,
+    body.dark-mode footer {
+      background-color: #222;  /* darker grey */
+      color: #f0f0f0;
+    }
+
+    /* Optional: card-like divs */
+    section#dashboard div {
+      padding: 12px;
+      margin: 8px 0;
+      border-radius: 6px;
+      background: #f0f0f0;
+      color: #000;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    body.dark-mode section#dashboard div {
+      background: #2a2a2a;
+      color: #f0f0f0;
+    }
+  </style>
+</head>
+<body>
+  <!-- Top Navigation -->
+  <header>
+    <h1>Smart Student Hub</h1>
+    <nav>
+      <ul>
+        <li><a href="#dashboard">Dashboard</a></li>
+        <li><a href="#documents">documents</a></li>
+        <li><a href="#activities">Activities</a></li>
+        <li><a href="#portfolio">Portfolio</a></li>
+        <li><a href="#approvals">Approvals</a></li>
+        <li><a href="#analytics">Analytics</a></li>
+        <li><a href="#students">Students</a></li>
+        <li><a href="#settings">Settings</a></li>
+        <li><a href="#support">Support</a></li>        
+      </ul>
+    </nav>
+  </header>
+
+  <!-- Dashboard -->
+  <section id="dashboard">
+    <h2>Welcome {{ user.name }}</h2>
+    <p>Here's your activity overview for this semester</p>
+
+    <div><h3>Total Activities</h3><p>24</p></div>
+    <div><h3>Pending Approvals</h3><p>3</p></div>
+    <div><h3>Completed Certifications</h3><p>8</p></div>
+    <div><h3>Portfolio Score</h3><p>85%</p></div>
+
+    <h3>Recent Activities</h3>
+    <ul>
+      <li>AI Workshop by Google - Approved</li>
+      <li>Programming Contest - Pending</li>
+      <li>Web Development Bootcamp - Approved</li>
+      <li>Blood Donation Camp - Approved</li>
+    </ul>
+
+    <h3>Upcoming Deadlines</h3>
+    <ul>
+      <li>Submit Internship Report - Jan 20</li>
+      <li>Register for Tech Fest - Jan 25</li>
+      <li>Upload MOOC Certificate - Jan 30</li>
+    </ul>
+  </section>
+<section id="documents">
+  <h2>My Documents</h2>
+
+  <!-- Upload form -->
+  <form action="{{ url_for('upload_document') }}" method="POST" enctype="multipart/form-data">
+    <label>Document Name</label>
+    <input type="text" name="doc_name" placeholder="Enter document name" required>
+
+    <label>Select File</label>
+    <input type="file" name="document" required>
+
+    <button type="submit">Upload</button>
+  </form>
+
+  <!-- List uploaded documents -->
+  <ul>
+    {% for doc in documents %}
+      <li>
+        <strong></strong> 
+        {{ doc.doc_name }}
+        <div>
+          <a href="{{ url_for('static', filename='uploads/' ~ doc.filename) }}" target="_blank">View</a>
+          <form action="{{ url_for('remove_document', filename=doc.filename) }}" method="POST" style="display:inline;">
+            <button type="submit">Remove</button>
+          </form>
+        </div>
+      </li>
+    {% else %}
+      <li>No documents uploaded yet.</li>
+    {% endfor %}
+  </ul>
+</section>
+
+
+
+
+
+
+  <!-- Activities -->
+  <section id="activities">
+    <h2>Activity Tracker</h2>
+    <form action="{{ url_for('add_activity') }}" method="POST">
+      <label>Activity Title</label>
+      <input type="text" name="title" required>
+
+      <label>Activity Type</label>
+      <select name="type" required>
+        <option>Workshop</option>
+        <option>Seminar</option>
+        <option>Conference</option>
+      </select>
+
+      <label>Date</label>
+      <input type="date" name="date" required>
+
+      <label>Description</label>
+      <textarea name="description"></textarea>
+
+      <button type="submit">Submit for Approval</button>
+    </form>
+
+    <h3>My Activities</h3>
+    <ul>
+      {% for act in activities %}
+        <li>{{ act.title }} - {{ act.status }}</li>
+      {% else %}
+        <li>No activities yet</li>
+      {% endfor %}
+    </ul>
+  </section>
+
+  <!-- Portfolio -->
+  <section id="portfolio">
+    <h2>Digital Portfolio</h2>
+    <p>Your academic and extracurricular profile</p>
+    <h3>Statistics</h3>
+    <ul>
+      <li>Total Activities: 24</li>
+      <li>Total Points: 185</li>
+      <li>Certifications: 8</li>
+      <li>Competitions: 6</li>
+    </ul>
+  </section>
+
+  <!-- Approvals -->
+  <section id="approvals">
+    <h2>Faculty Approvals</h2>
+    <p>Pending student submissions will appear here.</p>
+  </section>
+
+  <!-- Analytics -->
+  <section id="analytics">
+    <h2>Analytics & Reports</h2>
+    <p>Generate reports for NAAC, AICTE, etc.</p>
+  </section>
+
+  <!-- Students -->
+  <section id="students">
+    <h2>Student Management</h2>
+    <p>View and manage students with their records.</p>
+  </section>
+
+  <!-- Settings -->
+  <section id="settings">
+    <h2>Settings</h2>
+    <p>Customize your experience.</p>
+    <label><input type="checkbox" id="themeToggle"> Enable Dark Mode</label>
+  </section>
+
+  <!-- Support -->
+  <section id="support">
+    <h2>Support & Help</h2>
+    <p>FAQs and Contact Support.</p>
+  </section>
+
+  <!-- Footer -->
+  <footer>
+    <p>Smart Student Hub — Linked Bundle Version</p>
+  </footer>
+
+  <!-- ✅ External Combined JS (Flask static path) -->
+  <script src="{{ url_for('static', filename='js/student_dashboard_bundle.js') }}"></script>
+
+  <!-- ✅ Dark Mode Script -->
+  <script>
+    const themeToggle = document.getElementById('themeToggle');
+    const body = document.body;
+
+    // Load user preference if saved
+    if (localStorage.getItem('darkMode') === 'enabled') {
+      body.classList.add('dark-mode');
+      themeToggle.checked = true;
+    }
+
+    themeToggle.addEventListener('change', () => {
+      if (themeToggle.checked) {
+        body.classList.add('dark-mode');
+        localStorage.setItem('darkMode', 'enabled');
+      } else {
+        body.classList.remove('dark-mode');
+        localStorage.setItem('darkMode', 'disabled');
+      }
+    });
+  </script>
+</body>
+</html>

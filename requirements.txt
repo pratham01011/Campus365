@@ -1,6 +1,5 @@
-Flask==3.0.3
-flask-jwt-extended==4.6.0
-pymongo==4.7.2
-werkzeug==3.0.3
-dnspython==2.6.1   # needed for MongoDB Atlas connection
-python-dotenv==1.0.1   # optional (for .env support)
+flask
+flask-jwt-extended
+pymongo
+werkzeug
+gunicorn

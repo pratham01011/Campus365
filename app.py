@@ -1,14 +1,14 @@
 from flask import Flask, jsonify, render_template, request, redirect, url_for, session, flash
 import os
-from flask_jwt_extended import (
-    JWTManager, create_access_token, jwt_required, get_jwt_identity
-)
+from flask_jwt_extended import JWTManager
 from pymongo import MongoClient
 from werkzeug.utils import secure_filename
 
 app = Flask(__name__)
-app.secret_key = "supersecretkey"  # Needed for sessions
-app.config["JWT_SECRET_KEY"] = "super-secret-key"  
+
+# 🔹 Load secrets from Environment Variables (set in Render)
+app.secret_key = os.environ.get("SECRET_KEY", "fallback_secret")  
+app.config["JWT_SECRET_KEY"] = os.environ.get("JWT_SECRET_KEY", "fallback_jwt_secret")  
 jwt = JWTManager(app)
 
 # 🔹 Upload folder for student documents
@@ -16,16 +16,17 @@ UPLOAD_FOLDER = os.path.join("static", "uploads")
 os.makedirs(UPLOAD_FOLDER, exist_ok=True)
 app.config["UPLOAD_FOLDER"] = UPLOAD_FOLDER
 
-# 🔹 Connect to MongoDB Atlas
-client = MongoClient(
-    "mongodb+srv://campus360:swami056@campus360.nisg0xn.mongodb.net/?retryWrites=true&w=majority&appName=campus360"
-)
-db = client["campus360"]           
-users_collection = db["users"]         
-login_col = db["student"]              
-records_col = db["student_records"]    
-documents_col = db["student_documents"]  
-faculty_students_col = db["faculty_students"]  
+# 🔹 Connect to MongoDB Atlas (from env var)
+MONGO_URI = os.environ.get("MONGO_URI", "")
+client = MongoClient(MONGO_URI)
+db = client["campus360"]
+
+# 🔹 Collections
+users_collection = db["users"]
+login_col = db["student"]
+records_col = db["student_records"]
+documents_col = db["student_documents"]
+faculty_students_col = db["faculty_students"]
 courses_col = db["courses"]  # ✅ courses collection
 
 # 🔹 Home → redirect to login

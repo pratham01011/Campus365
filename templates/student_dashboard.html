@@ -5,6 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Smart Student Hub - Dashboard</title>
 
+  
+
   <!-- ✅ External Combined CSS (Flask static path) -->
   <link rel="stylesheet" href="{{ url_for('static', filename='css/student_dashboard_bundle.css') }}">
 
@@ -16,7 +18,7 @@
 
     /* 🌞 Light mode (default) */
     body {
-      background-color: #ffffff;
+      background-color: #e5dde7;
       color: #000000;
     }
 
@@ -121,7 +123,40 @@
   </style>
 </head>
 <body>
-  <!-- Top Navigation -->
+
+<!-- Top Navigation -->
+<header class="flex items-center justify-between p-4">
+  <!-- Logo + Title -->
+  <div class="flex items-center gap-3">
+    <img src="{{ url_for('static', filename='images/logo.png') }}" 
+     alt="Campus360 Logo" class="h-16 w-16 object-contain">
+
+
+    <h1>Smart Student Hub</h1>
+  </div>
+
+  <!-- Navigation -->
+  <nav>
+    <ul class="flex gap-4">
+      <li><a href="#dashboard">Dashboard</a></li>
+      <li><a href="#documents">Documents</a></li>
+      <li><a href="#activities">Activities</a></li>
+      <li><a href="#portfolio">Portfolio</a></li>
+      <li><a href="#approvals">Approvals</a></li>
+      <li><a href="#analytics">Analytics</a></li>
+      <li><a href="#students">Students</a></li>
+      <li><a href="#settings">Settings</a></li>
+      <li><a href="#support">Support</a></li> 
+    </ul>
+  </nav>
+  <form action="{{ url_for('logout') }}" method="GET" style="display:inline;">
+  <button type="submit" class="text-red-500 font-semibold">Logout</button>
+</form>
+</header>
+
+
+  
+  <!-- Top Navigation 
   <header>
     <h1>Smart Student Hub</h1>
     <nav>
@@ -138,6 +173,7 @@
       </ul>
     </nav>
   </header>
+  -->
 
   <!-- Dashboard -->
   <section id="dashboard">
@@ -196,10 +232,6 @@
     {% endfor %}
   </ul>
 </section>
-
-
-
-
 
 
   <!-- Activities -->

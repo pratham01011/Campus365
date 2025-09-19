@@ -99,3 +99,9 @@ body {
   font-size: 0.95rem;
   border-left: 4px solid #bec3c4;
 }
+h1 {
+  margin-bottom: 1.5rem;
+  color: #2c7a7b;
+  font-size: 1.8rem;
+  font-weight: bold;
+}

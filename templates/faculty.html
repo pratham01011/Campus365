@@ -1,138 +1,496 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Faculty Dashboard</title>
+  <!DOCTYPE html>
+  <html lang="en">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Faculty Dashboard</title>
 
-  <!-- Google Fonts -->
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=PT+Sans:wght@400;700&display=swap" rel="stylesheet">
 
-  <!-- Font Awesome -->
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
 
-  <!-- Tailwind -->
-  <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Tailwind -->
+    <script src="https://cdn.tailwindcss.com"></script>
 
-  <!-- Chart.js -->
-  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  
-  <!-- External CSS -->
-  <link rel="stylesheet" href="../static/css/faculty.css">
-</head>
-<body>
-  <!-- Faculty Portal -->
-  <div id="facultyPortal" class="container mx-auto px-4 py-8">
-    <!-- Header -->
-    <header class="flex justify-between items-center mb-8 animate-fade-in">
-      <h1 class="text-3xl font-heading font-bold text-white">Faculty Dashboard</h1>
-      <div class="flex items-center space-x-4">
-        <div class="relative">
-          <i class="fas fa-bell text-white text-xl cursor-pointer"></i>
-          <span class="absolute -top-1 -right-1 bg-warning text-white rounded-full w-4 h-4 flex items-center justify-center text-xs notification-alert">5</span>
+    <!-- Chart.js -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    
+    <!-- External CSS -->
+    <link rel="stylesheet" href="../static/css/faculty.css">
+  </head>
+  <body>
+    <!-- Faculty Portal -->
+    <div id="facultyPortal" class="container mx-auto px-4 py-8">
+      <!-- Header -->
+      <header class="flex justify-between items-center mb-8 animate-fade-in">
+        <h1 class="text-3xl font-heading font-bold text-white">Faculty Dashboard</h1>
+        <div class="flex items-center space-x-4">
+          <div class="relative">
+            <i class="fas fa-bell text-white text-xl cursor-pointer"></i>
+            <span class="absolute -top-1 -right-1 bg-warning text-white rounded-full w-4 h-4 flex items-center justify-center text-xs notification-alert">5</span>
+          </div>
+          <a href="{{ url_for('logout') }}">logout</a>
         </div>
-        <a href="{{ url_for('logout') }}">logout</a>
-      </div>
-    </header>
+      </header>
 
-    <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
-      <!-- Sidebar -->
-      <aside class="lg:col-span-1 animate-slide-up">
-        <div class="bg-white rounded-xl shadow-md p-6 card-hover">
-          <div class="flex items-center space-x-4 mb-6">
-            <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-xl font-bold transition-all duration-300 hover:bg-secondary">PF</div>
-            <div>
-              <h2 class="text-lg font-heading font-bold">Professor Faculty</h2>
-              <p class="text-gray-600">Computer Science Department</p>
-              <p class="text-sm text-gray-500">ID: FAC2023001</p>
+      <div class="grid grid-cols-1 lg:grid-cols-4 gap-8">
+        <!-- Sidebar -->
+        <aside class="lg:col-span-1 animate-slide-up">
+          <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+            <div class="flex items-center space-x-4 mb-6">
+              <div class="w-16 h-16 bg-primary rounded-full flex items-center justify-center text-white text-xl font-bold transition-all duration-300 hover:bg-secondary">PF</div>
+              <div>
+                <h1 class="text-lg font-heading font-bold">{{admin}}</h1>
+                <p class="text-gray-600"></p>
+                <p class="text-sm text-gray-500">{{email}}</p>
+              </div>
+            </div>
+
+            <div class="space-y-2">
+              <button data-section="dashboard" class="sidebar-btn w-full text-left py-2 px-4 rounded-lg bg-primary bg-opacity-10 text-primary font-medium active">
+                <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
+              </button>
+              <button data-section="courses" class="sidebar-btn w-full text-left py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors duration-300">
+                <i class="fas fa-book mr-2"></i> My Courses
+              </button>
+              <button data-section="students" class="sidebar-btn w-full text-left py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors duration-300">
+                <i class="fas fa-user-graduate mr-2"></i> Students
+              </button>
+              <button data-section="grading" class="sidebar-btn w-full text-left py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors duration-300">
+                <i class="fas fa-check-circle mr-2"></i> Grading
+              </button>
+              <button data-section="analytics" class="sidebar-btn w-full text-left py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors duration-300">
+                <i class="fas fa-chart-bar mr-2"></i> Analytics
+              </button>
+              <button data-section="settings" class="sidebar-btn w-full text-left py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors duration-300">
+                <i class="fas fa-cog mr-2"></i> Settings
+              </button>
+              <button data-section="files" 
+          class="sidebar-btn w-full text-left py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors duration-300">
+    <i class="fas fa-folder mr-2"></i> File Management
+  </button>
+
             </div>
           </div>
+          
+          <!-- Quick Status -->
+          <div class="bg-white rounded-xl shadow-md p-6 mt-6 card-hover">
+            <h3 class="font-heading font-bold mb-4">Current Status</h3>
+            <div class="flex items-center mb-2">
+              <div class="w-3 h-3 bg-approved rounded-full mr-2"></div>
+              <span class="text-sm">{{course_count}} Courses Active</span>
+            </div>
+            <div class="flex items-center mb-2">
+              <div class="w-3 h-3 bg-pending rounded-full mr-2"></div>
+              <span class="text-sm">12 Assignments to Grade</span>
+            </div>
+            <div class="flex items-center">
+              <div class="w-3 h-3 bg-success rounded-full mr-2"></div>
+              <span class="text-sm">{{count}} Students</span>
+            </div>
+          </div>
+        </aside>
 
-          <div class="space-y-2">
-            <button data-section="dashboard" class="sidebar-btn w-full text-left py-2 px-4 rounded-lg bg-primary bg-opacity-10 text-primary font-medium active">
-              <i class="fas fa-tachometer-alt mr-2"></i> Dashboard
-            </button>
-            <button data-section="courses" class="sidebar-btn w-full text-left py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors duration-300">
-              <i class="fas fa-book mr-2"></i> My Courses
-            </button>
-            <button data-section="students" class="sidebar-btn w-full text-left py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors duration-300">
-              <i class="fas fa-user-graduate mr-2"></i> Students
-            </button>
-            <button data-section="grading" class="sidebar-btn w-full text-left py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors duration-300">
-              <i class="fas fa-check-circle mr-2"></i> Grading
-            </button>
-            <button data-section="analytics" class="sidebar-btn w-full text-left py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors duration-300">
-              <i class="fas fa-chart-bar mr-2"></i> Analytics
-            </button>
-            <button data-section="settings" class="sidebar-btn w-full text-left py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors duration-300">
-              <i class="fas fa-cog mr-2"></i> Settings
-            </button>
-            <button data-section="files" 
-        class="sidebar-btn w-full text-left py-2 px-4 rounded-lg hover:bg-gray-100 transition-colors duration-300">
-  <i class="fas fa-folder mr-2"></i> File Management
-</button>
+        <!-- Main Content -->
+        <main class="lg:col-span-3 space-y-8">
+          <!-- File Management Section -->
+  <section id="files" class="content-section hidden">
+    <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+      <h2 class="text-xl font-heading font-bold mb-6">File Management</h2>
 
-          </div>
-        </div>
-        
-        <!-- Quick Status -->
-        <div class="bg-white rounded-xl shadow-md p-6 mt-6 card-hover">
-          <h3 class="font-heading font-bold mb-4">Current Status</h3>
-          <div class="flex items-center mb-2">
-            <div class="w-3 h-3 bg-approved rounded-full mr-2"></div>
-            <span class="text-sm">3 Courses Active</span>
-          </div>
-          <div class="flex items-center mb-2">
-            <div class="w-3 h-3 bg-pending rounded-full mr-2"></div>
-            <span class="text-sm">12 Assignments to Grade</span>
-          </div>
-          <div class="flex items-center">
-            <div class="w-3 h-3 bg-success rounded-full mr-2"></div>
-            <span class="text-sm">85 Students</span>
-          </div>
-        </div>
-      </aside>
+      <!-- Student Document Folders -->
+  <div class="overflow-x-auto">
+    <table class="w-full">
+      <thead>
+        <tr class="bg-gray-100">
+          <th class="py-3 px-4 text-left">Student Name</th>
+          <th class="py-3 px-4 text-left">Student ID</th>
+          <th class="py-3 px-4 text-left">Documents</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for student in students %}
+        <tr class="border-b {% if search_name and search_name.lower() in student.name.lower() %} bg-yellow-100 animate-pulse {% endif %}">
 
-      <!-- Main Content -->
-      <main class="lg:col-span-3 space-y-8">
-        <!-- File Management Section -->
-<section id="files" class="content-section hidden">
+          <td class="py-3 px-4 font-bold">{{ student.name }}</td>
+          <td class="py-3 px-4">{{ student.student_id }}</td>
+          <td class="py-3 px-4">
+    {% if student.documents %}
+      <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
+        {% for doc in student.documents %}
+          <div class="bg-gray-50 border p-2 rounded-lg shadow-sm flex items-center justify-between">
+            <span class="text-sm truncate">📄 {{ doc.doc_name }}</span>
+            <a href="{{ url_for('static', filename='uploads/' ~ doc.filename) }}" 
+              target="_blank" 
+              class="text-primary text-xs font-medium hover:underline">View</a>
+          </div>
+        {% endfor %}
+      </div>
+    {% else %}
+      <span class="text-gray-500 italic">No documents uploaded</span>
+    {% endif %}
+  </td>
+
+
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+
+
+      <!-- File List -->
+  <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
+    {% for file in files %}
+    <div class="bg-gray-50 border rounded-lg p-4 flex flex-col shadow-sm hover:shadow-md transition">
+      <div class="flex items-center space-x-2 mb-3">
+        <i class="fas fa-file-alt text-primary text-xl"></i>
+        <h3 class="font-semibold text-sm">{{ file.doc_name }}</h3>
+      </div>
+      <p class="text-xs text-gray-500 mb-2">Student ID: <span class="font-medium">{{ file.student_id }}</span></p>
+      <a href="{{ url_for('static', filename='uploads/' ~ file.filename) }}" 
+        target="_blank" 
+        class="text-primary text-sm font-medium hover:underline mb-3">
+        {{ file.filename }}
+      </a>
+      <form action="{{ url_for('faculty_remove_file', filename=file.filename) }}" method="POST" class="mt-auto">
+        <button type="submit" class="text-red-500 hover:text-red-700 text-sm flex items-center space-x-1">
+          <i class="fas fa-trash"></i><span>Delete</span>
+        </button>
+      </form>
+    </div>
+    {% else %}
+    <p class="col-span-full text-center text-gray-500 italic">No files uploaded yet.</p>
+    {% endfor %}
+  </div>
+
+    </div>
+  </section>
+
+          <!-- Dashboard Section -->
+          <section id="dashboard" class="content-section">
+            <!-- Welcome Card -->
+            <div class="bg-white rounded-xl shadow-md p-6 mb-8 card-hover animate-fade-in">
+              <h2 class="text-xl font-heading font-bold mb-4">Welcome {{admin}}</h2>
+              <p class="text-gray-600 mb-4">You have <span class="font-bold text-primary">12 submissions to grade</span> and <span class="font-bold text-pending">3 upcoming classes</span>.</p>
+              <div class="bg-primary bg-opacity-10 p-4 rounded-lg border-l-4 border-primary">
+                <p class="text-primary"><i class="fas fa-lightbulb mr-2"></i> Reminder: Faculty meeting tomorrow at 10:00 AM in Conference Room B</p>
+              </div>
+            </div>
+
+            <!-- Quick Stats -->
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+              <div class="p-4 bg-primary text-white rounded-lg shadow card-hover animate-slide-up">
+                <div class="flex justify-between items-center">
+                  <h3 class="text-lg font-semibold">Courses</h3>
+                  <i class="fas fa-book text-2xl opacity-80"></i>
+                </div>
+                <p class="text-2xl font-bold mt-2">{{course_count}}</p>
+                <p class="text-sm opacity-80 mt-1">{{course_count}} active this semester</p>
+              </div>
+              <div class="p-4 bg-secondary text-white rounded-lg shadow card-hover animate-slide-up" style="animation-delay: 0.1s;">
+                <div class="flex justify-between items-center">
+                  <h3 class="text-lg font-semibold">Students</h3>
+                  <i class="fas fa-user-graduate text-2xl opacity-80"></i>
+                </div>
+                <p class="text-2xl font-bold mt-2">{{count}}</p>
+                <p class="text-sm opacity-80 mt-1">Across all courses</p>
+              </div>
+              <div class="p-4 bg-pending text-white rounded-lg shadow card-hover animate-slide-up" style="animation-delay: 0.2s;">
+                <div class="flex justify-between items-center">
+                  <h3 class="text-lg font-semibold">To Grade</h3>
+                  <i class="fas fa-check-circle text-2xl opacity-80"></i>
+                </div>
+                <p class="text-2xl font-bold mt-2">12</p>
+                <p class="text-sm opacity-80 mt-1">Submissions pending</p>
+              </div>
+            </div>
+
+            <!-- Upcoming Schedule -->
+            <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+              <h2 class="text-xl font-heading font-bold mb-4">Today's Schedule</h2>
+              <div class="space-y-4">
+                <div class="flex items-center justify-between p-3 border-b">
+                  <div>
+                    <h3 class="font-medium">Web Technology Lecture</h3>
+                    <p class="text-sm text-gray-500">Room 302, Building A</p>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-primary font-medium">10:00 AM - 11:30 AM</p>
+                    <p class="text-xs text-gray-500">45 students enrolled</p>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between p-3 border-b">
+                  <div>
+                    <h3 class="font-medium">Office Hours</h3>
+                    <p class="text-sm text-gray-500">Faculty Office 205</p>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-warning font-medium">2:00 PM - 4:00 PM</p>
+                    <p class="text-xs text-gray-500">3 students booked</p>
+                  </div>
+                </div>
+                <div class="flex items-center justify-between p-3">
+                  <div>
+                    <h3 class="font-medium">Department Meeting</h3>
+                    <p class="text-sm text-gray-500">Conference Room B</p>
+                  </div>
+                  <div class="text-right">
+                    <p class="text-pending font-medium">4:30 PM - 5:30 PM</p>
+                    <p class="text-xs text-gray-500">All faculty required</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <!-- Courses Section -->
+<section id="courses" class="content-section hidden">
   <div class="bg-white rounded-xl shadow-md p-6 card-hover">
-    <h2 class="text-xl font-heading font-bold mb-6">File Management</h2>
+    <h2 class="text-xl font-heading font-bold mb-6">My Courses</h2>
 
-    <!-- Student Document Folders -->
-<div class="overflow-x-auto">
+    <!-- Add Course -->
+    <form action="{{ url_for('add_course') }}" method="POST" class="mb-6 flex gap-3">
+      <input type="text" name="course_name" placeholder="Course Name" required 
+             class="border px-3 py-2 rounded flex-1">
+      <button type="submit" class="submit-btn">Add Course</button>
+    </form>
+
+    <!-- Course List -->
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+      {% for course in courses %}
+      <div class="border rounded-lg p-4 shadow hover:shadow-md transition">
+        <!-- Course Header -->
+        <div class="flex justify-between items-center cursor-pointer toggle-course" 
+             data-target="course-{{ loop.index }}">
+          <h3 class="font-bold text-lg flex items-center gap-2">
+            <span>{{ course.course_name }}</span>
+            <i class="fas fa-chevron-down text-gray-500 transition-transform"></i>
+          </h3>
+          <p class="text-xs text-gray-500">Enrolled: {{ course.students|length }}</p>
+        </div>
+
+        <!-- Hidden Content -->
+        <div id="course-{{ loop.index }}" class="hidden mt-3">
+          <!-- Add Student to Course -->
+          <form action="{{ url_for('add_student_to_course', course_name=course.course_name) }}" 
+                method="POST" class="flex gap-2 mb-3">
+            <input type="email" name="email" placeholder="Student Email" required 
+                   class="border px-3 py-2 rounded flex-1">
+            <button type="submit" class="submit-btn text-sm">Add</button>
+          </form>
+
+          <!-- Student Profiles -->
+          <ul class="space-y-3">
+            {% for student in course.student_profiles %}
+            <li class="bg-white border rounded-lg p-3 shadow-sm hover:shadow-md transition">
+              <!-- Student Info -->
+              <div class="flex justify-between items-center">
+                <div class="flex items-center gap-3">
+                  <div class="w-10 h-10 rounded-full bg-primary text-white flex items-center justify-center font-bold">
+                    {{ student.name[0]|upper }}
+                  </div>
+                  <div>
+                    <p class="font-semibold text-gray-800">{{ student.name }}</p>
+                    <p class="text-xs text-gray-500">{{ student.email }}</p>
+                  </div>
+                </div>
+                <!-- Remove Student Button -->
+                <form action="{{ url_for('remove_student_from_course', course_name=course.course_name, email=student.email) }}" method="POST">
+                  <button type="submit" 
+                          class="bg-red-500 hover:bg-red-600 text-white text-xs px-3 py-1 rounded">
+                    Remove
+                  </button>
+                </form>
+              </div>
+
+              <!-- Student Documents -->
+              <div class="mt-3">
+                <h4 class="text-sm font-medium text-gray-600 mb-2">Documents:</h4>
+                {% if student.documents %}
+                <div class="flex flex-wrap gap-2">
+                  {% for doc in student.documents %}
+                  <div class="bg-gray-100 border border-gray-300 rounded-lg px-3 py-2 flex items-center space-x-2 hover:shadow-md transition">
+                    <i class="fas fa-file-alt text-primary"></i>
+                    <a href="{{ url_for('static', filename='uploads/' ~ doc.filename) }}" 
+                       target="_blank" 
+                       class="text-sm font-medium text-primary hover:underline">
+                      {{ doc.doc_name }}
+                    </a>
+                  </div>
+                  {% endfor %}
+                </div>
+                {% else %}
+                <span class="text-gray-400 italic text-sm">No documents uploaded</span>
+                {% endif %}
+              </div>
+            </li>
+            {% else %}
+            <li class="text-gray-400 italic text-sm">No students yet</li>
+            {% endfor %}
+          </ul>
+
+          <!-- Remove Course -->
+          <form action="{{ url_for('remove_course', course_name=course.course_name) }}" 
+                method="POST" class="mt-4">
+            <button type="submit" 
+                    class="bg-red-500 hover:bg-red-600 text-white px-3 py-1 rounded text-sm w-full">
+              Remove Course
+            </button>
+          </form>
+        </div>
+      </div>
+      {% else %}
+      <p class="col-span-full text-center text-gray-500 italic">No courses created yet.</p>
+      {% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- Toggle Script -->
+<script>
+  document.querySelectorAll(".toggle-course").forEach(toggle => {
+    toggle.addEventListener("click", () => {
+      const target = document.getElementById(toggle.dataset.target);
+      const icon = toggle.querySelector("i");
+      target.classList.toggle("hidden");
+      icon.classList.toggle("rotate-180");
+    });
+  });
+</script>
+
+
+
+
+        <!-- Students Section -->
+  <section id="students" class="content-section hidden">
+    <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+      <h2 class="text-xl font-heading font-bold mb-6">Student Management System</h2>
+
+      <!-- ✅ Flash / Popup Messages -->
+      {% with messages = get_flashed_messages(with_categories=true) %}
+        {% if messages %}
+          <div class="mb-4">
+            {% for category, message in messages %}
+              <div class="p-3 rounded-lg 
+                {% if category == 'error' %} bg-red-100 border border-red-400 text-red-700 
+                {% elif category == 'warning' %} bg-yellow-100 border border-yellow-400 text-yellow-700
+                {% elif category == 'success' %} bg-green-100 border border-green-400 text-green-700 
+                {% endif %}">
+                {{ message }}
+              </div>
+            {% endfor %}
+          </div>
+        {% endif %}
+      {% endwith %}
+      <!-- ✅ End Flash Messages -->
+      {% if search_results %}
+    <h3 class="text-lg font-bold mb-4">Search Results</h3>
+    <table class="w-full mb-6">
+      <thead>
+        <tr class="bg-gray-100">
+          <th class="py-3 px-4 text-left">Student Name</th>
+          <th class="py-3 px-4 text-left">ID</th>
+          <th class="py-3 px-4 text-left">Course</th>
+          <th class="py-3 px-4 text-left">Status</th>
+          <th class="py-3 px-4 text-left">Documents</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for student in search_results %}
+        <tr class="border-b bg-yellow-50">
+          <td class="py-3 px-4 font-bold">{{ student.name }}</td>
+          <td class="py-3 px-4">{{ student.student_id }}</td>
+          <td class="py-3 px-4">{{ student.course }}</td>
+          <td class="py-3 px-4">{{ student.status }}</td>
+          <td class="py-3 px-4">
+            {% if student.documents %}
+              <ul>
+                {% for doc in student.documents %}
+                  <li>📄 <a href="{{ url_for('static', filename='uploads/' ~ doc.filename) }}" target="_blank">{{ doc.doc_name }}</a></li>
+                {% endfor %}
+              </ul>
+            {% else %}
+              <span class="text-gray-500 italic">No documents</span>
+            {% endif %}
+          </td>
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}   
+
+
+      <!-- Search + Add Student -->
+      <form method="POST" action="{{ url_for('faculty_dashboard') }}" class="mb-6 flex justify-between items-center">
+        <div class="relative w-64">
+          <input type="text" name="search_name" placeholder="Search students..." class="w-full border px-4 py-2 rounded-lg focus:ring-2 focus:ring-primary">
+          <i class="fas fa-search absolute right-3 top-3 text-gray-400"></i>
+        </div>
+        <button type="button" onclick="document.getElementById('addStudentForm').classList.toggle('hidden')" 
+                class="submit-btn">
+          <i class="fas fa-plus mr-2"></i> Add Student
+        </button>
+      </form>
+
+      <!-- Add Student Form (toggle hidden by default) -->
+      <form id="addStudentForm" method="POST" action="{{ url_for('add_student') }}" class="hidden bg-gray-50 p-4 rounded-lg mb-6">
+    <div>
+      <input type="email" name="email" placeholder="Enter Student Email" required class="w-full border px-3 py-2 rounded">
+    </div>
+    <button type="submit" class="submit-btn mt-3">Add Student</button>
+  </form>
+
+
+      <!-- Student Folders -->
+      <div class="overflow-x-auto">
   <table class="w-full">
     <thead>
       <tr class="bg-gray-100">
         <th class="py-3 px-4 text-left">Student Name</th>
-        <th class="py-3 px-4 text-left">Student ID</th>
+        <th class="py-3 px-4 text-left">ID</th>
+        <th class="py-3 px-4 text-left">Course</th>
+        <th class="py-3 px-4 text-left">Status</th>
         <th class="py-3 px-4 text-left">Documents</th>
+        <th class="py-3 px-4 text-left">Actions</th>
       </tr>
     </thead>
     <tbody>
       {% for student in students %}
-      <tr class="border-b">
+      <tr class="border-b {% if search_name and search_name.lower() in student.name.lower() %} bg-yellow-100 animate-pulse {% endif %}">
         <td class="py-3 px-4 font-bold">{{ student.name }}</td>
         <td class="py-3 px-4">{{ student.student_id }}</td>
+        <td class="py-3 px-4">{{ student.course }}</td>
         <td class="py-3 px-4">
-  {% if student.documents %}
-    <div class="grid grid-cols-1 sm:grid-cols-2 gap-2">
-      {% for doc in student.documents %}
-        <div class="bg-gray-50 border p-2 rounded-lg shadow-sm flex items-center justify-between">
-          <span class="text-sm truncate">📄 {{ doc.doc_name }}</span>
-          <a href="{{ url_for('static', filename='uploads/' ~ doc.filename) }}" 
-             target="_blank" 
-             class="text-primary text-xs font-medium hover:underline">View</a>
-        </div>
-      {% endfor %}
-    </div>
-  {% else %}
-    <span class="text-gray-500 italic">No documents uploaded</span>
-  {% endif %}
-</td>
-
-
+          <span class="bg-approved bg-opacity-20 text-approved text-xs px-2 py-1 rounded-full">{{ student.status }}</span>
+        </td>
+        <td class="py-3 px-4">
+          {% if student.documents %}
+          <div class="flex flex-wrap gap-2">
+            {% for doc in student.documents %}
+            <div class="bg-gray-100 border border-gray-300 rounded-lg px-3 py-2 flex items-center space-x-2 hover:shadow-md transition">
+              <i class="fas fa-file-alt text-primary"></i>
+              <a href="{{ url_for('static', filename='uploads/' ~ doc.filename) }}" 
+                 target="_blank" 
+                 class="text-sm font-medium text-primary hover:underline">
+                {{ doc.doc_name }}
+              </a>
+            </div>
+            {% endfor %}
+          </div>
+          {% else %}
+          <span class="text-gray-500 italic">No documents uploaded</span>
+          {% endif %}
+        </td>
+        <td class="py-3 px-4">
+          <form action="{{ url_for('remove_student', email=student.email) }}" method="POST" style="display:inline;">
+            <button type="submit" class="text-red-600 hover:text-red-800">
+              <i class="fas fa-trash"></i> Remove
+            </button>
+          </form>
+        </td>
       </tr>
       {% endfor %}
     </tbody>
@@ -140,562 +498,306 @@
 </div>
 
 
-    <!-- File List -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-  {% for file in files %}
-  <div class="bg-gray-50 border rounded-lg p-4 flex flex-col shadow-sm hover:shadow-md transition">
-    <div class="flex items-center space-x-2 mb-3">
-      <i class="fas fa-file-alt text-primary text-xl"></i>
-      <h3 class="font-semibold text-sm">{{ file.doc_name }}</h3>
-    </div>
-    <p class="text-xs text-gray-500 mb-2">Student ID: <span class="font-medium">{{ file.student_id }}</span></p>
-    <a href="{{ url_for('static', filename='uploads/' ~ file.filename) }}" 
-       target="_blank" 
-       class="text-primary text-sm font-medium hover:underline mb-3">
-      {{ file.filename }}
-    </a>
-    <form action="{{ url_for('faculty_remove_file', filename=file.filename) }}" method="POST" class="mt-auto">
-      <button type="submit" class="text-red-500 hover:text-red-700 text-sm flex items-center space-x-1">
-        <i class="fas fa-trash"></i><span>Delete</span>
-      </button>
-    </form>
-  </div>
-  {% else %}
-  <p class="col-span-full text-center text-gray-500 italic">No files uploaded yet.</p>
-  {% endfor %}
-</div>
-
-  </div>
-</section>
-
-        <!-- Dashboard Section -->
-        <section id="dashboard" class="content-section">
-          <!-- Welcome Card -->
-          <div class="bg-white rounded-xl shadow-md p-6 mb-8 card-hover animate-fade-in">
-            <h2 class="text-xl font-heading font-bold mb-4">Welcome back, Professor!</h2>
-            <p class="text-gray-600 mb-4">You have <span class="font-bold text-primary">12 submissions to grade</span> and <span class="font-bold text-pending">3 upcoming classes</span>.</p>
-            <div class="bg-primary bg-opacity-10 p-4 rounded-lg border-l-4 border-primary">
-              <p class="text-primary"><i class="fas fa-lightbulb mr-2"></i> Reminder: Faculty meeting tomorrow at 10:00 AM in Conference Room B</p>
-            </div>
-          </div>
-
-          <!-- Quick Stats -->
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-            <div class="p-4 bg-primary text-white rounded-lg shadow card-hover animate-slide-up">
-              <div class="flex justify-between items-center">
-                <h3 class="text-lg font-semibold">Courses</h3>
-                <i class="fas fa-book text-2xl opacity-80"></i>
-              </div>
-              <p class="text-2xl font-bold mt-2">4</p>
-              <p class="text-sm opacity-80 mt-1">3 active this semester</p>
-            </div>
-            <div class="p-4 bg-secondary text-white rounded-lg shadow card-hover animate-slide-up" style="animation-delay: 0.1s;">
-              <div class="flex justify-between items-center">
-                <h3 class="text-lg font-semibold">Students</h3>
-                <i class="fas fa-user-graduate text-2xl opacity-80"></i>
-              </div>
-              <p class="text-2xl font-bold mt-2">85</p>
-              <p class="text-sm opacity-80 mt-1">Across all courses</p>
-            </div>
-            <div class="p-4 bg-pending text-white rounded-lg shadow card-hover animate-slide-up" style="animation-delay: 0.2s;">
-              <div class="flex justify-between items-center">
-                <h3 class="text-lg font-semibold">To Grade</h3>
-                <i class="fas fa-check-circle text-2xl opacity-80"></i>
-              </div>
-              <p class="text-2xl font-bold mt-2">12</p>
-              <p class="text-sm opacity-80 mt-1">Submissions pending</p>
-            </div>
-          </div>
-
-          <!-- Upcoming Schedule -->
-          <div class="bg-white rounded-xl shadow-md p-6 card-hover">
-            <h2 class="text-xl font-heading font-bold mb-4">Today's Schedule</h2>
-            <div class="space-y-4">
-              <div class="flex items-center justify-between p-3 border-b">
-                <div>
-                  <h3 class="font-medium">Web Technology Lecture</h3>
-                  <p class="text-sm text-gray-500">Room 302, Building A</p>
-                </div>
-                <div class="text-right">
-                  <p class="text-primary font-medium">10:00 AM - 11:30 AM</p>
-                  <p class="text-xs text-gray-500">45 students enrolled</p>
-                </div>
-              </div>
-              <div class="flex items-center justify-between p-3 border-b">
-                <div>
-                  <h3 class="font-medium">Office Hours</h3>
-                  <p class="text-sm text-gray-500">Faculty Office 205</p>
-                </div>
-                <div class="text-right">
-                  <p class="text-warning font-medium">2:00 PM - 4:00 PM</p>
-                  <p class="text-xs text-gray-500">3 students booked</p>
-                </div>
-              </div>
-              <div class="flex items-center justify-between p-3">
-                <div>
-                  <h3 class="font-medium">Department Meeting</h3>
-                  <p class="text-sm text-gray-500">Conference Room B</p>
-                </div>
-                <div class="text-right">
-                  <p class="text-pending font-medium">4:30 PM - 5:30 PM</p>
-                  <p class="text-xs text-gray-500">All faculty required</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-        <!-- Courses Section -->
-        <section id="courses" class="content-section hidden">
-          <div class="bg-white rounded-xl shadow-md p-6 card-hover">
-            <h2 class="text-xl font-heading font-bold mb-6">My Courses</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-              <div class="border rounded-lg p-4 activity-card hover:shadow-md transition-all duration-300">
-                <div class="flex items-start justify-between mb-3">
-                  <h3 class="font-bold">CS401 - Web Technology</h3>
-                  <span class="bg-approved bg-opacity-20 text-approved text-xs px-2 py-1 rounded-full">Active</span>
-                </div>
-                <p class="text-gray-600 text-sm mb-4">Advanced web development concepts and frameworks</p>
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center">
-                    <i class="fas fa-user-graduate text-primary mr-1 activity-icon"></i>
-                    <span class="text-sm">45 Students</span>
-                  </div>
-                  <span class="text-xs text-gray-500">Next class: Tomorrow 10:00 AM</span>
-                </div>
-              </div>
-              
-              <div class="border rounded-lg p-4 activity-card hover:shadow-md transition-all duration-300">
-                <div class="flex items-start justify-between mb-3">
-                  <h3 class="font-bold">CS305 - Data Structures</h3>
-                  <span class="bg-approved bg-opacity-20 text-approved text-xs px-2 py-1 rounded-full">Active</span>
-                </div>
-                <p class="text-gray-600 text-sm mb-4">Fundamental data structures and algorithms</p>
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center">
-                    <i class="fas fa-user-graduate text-primary mr-1 activity-icon"></i>
-                    <span class="text-sm">52 Students</span>
-                  </div>
-                  <span class="text-xs text-gray-500">Next class: Wednesday 2:00 PM</span>
-                </div>
-              </div>
-              
-              <div class="border rounded-lg p-4 activity-card hover:shadow-md transition-all duration-300">
-                <div class="flex items-start justify-between mb-3">
-                  <h3 class="font-bold">CS410 - Machine Learning</h3>
-                  <span class="bg-pending bg-opacity-20 text-pending text-xs px-2 py-1 rounded-full">Next Semester</span>
-                </div>
-                <p class="text-gray-600 text-sm mb-4">Introduction to ML algorithms and applications</p>
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center">
-                    <i class="fas fa-user-graduate text-primary mr-1 activity-icon"></i>
-                    <span class="text-sm">38 Enrolled</span>
-                  </div>
-                  <span class="text-xs text-gray-500">Starts: January 15</span>
-                </div>
-              </div>
-              
-              <div class="border rounded-lg p-4 activity-card hover:shadow-md transition-all duration-300">
-                <div class="flex items-start justify-between mb-3">
-                  <h3 class="font-bold">CS202 - Programming Fundamentals</h3>
-                  <span class="bg-approved bg-opacity-20 text-approved text-xs px-2 py-1 rounded-full">Active</span>
-                </div>
-                <p class="text-gray-600 text-sm mb-4">Introductory programming concepts</p>
-                <div class="flex items-center justify-between">
-                  <div class="flex items-center">
-                    <i class="fas fa-user-graduate text-primary mr-1 activity-icon"></i>
-                    <span class="text-sm">60 Students</span>
-                  </div>
-                  <span class="text-xs text-gray-500">Next class: Friday 9:00 AM</span>
-                </div>
-              </div>
-            </div>
-          </div>
-        </section>
-
-       <!-- Students Section -->
-<section id="students" class="content-section hidden">
-  <div class="bg-white rounded-xl shadow-md p-6 card-hover">
-    <h2 class="text-xl font-heading font-bold mb-6">Student Management System</h2>
-
-    <!-- Search + Add Student -->
-    <form method="POST" action="{{ url_for('faculty_dashboard') }}" class="mb-6 flex justify-between items-center">
-      <div class="relative w-64">
-        <input type="text" name="search_name" placeholder="Search students..." class="w-full border px-4 py-2 rounded-lg focus:ring-2 focus:ring-primary">
-        <i class="fas fa-search absolute right-3 top-3 text-gray-400"></i>
-      </div>
-      <button type="button" onclick="document.getElementById('addStudentForm').classList.toggle('hidden')" 
-              class="submit-btn">
-        <i class="fas fa-plus mr-2"></i> Add Student
-      </button>
-    </form>
-
-    <!-- Add Student Form (toggle hidden by default) -->
-    <form id="addStudentForm" method="POST" action="{{ url_for('add_student') }}" class="hidden bg-gray-50 p-4 rounded-lg mb-6">
-  <div>
-    <input type="email" name="email" placeholder="Enter Student Email" required class="w-full border px-3 py-2 rounded">
-  </div>
-  <button type="submit" class="submit-btn mt-3">Add Student</button>
-</form>
-
-
-    <!-- Student Folders -->
-    <div class="overflow-x-auto">
-      <table class="w-full">
-  <thead>
-    <tr class="bg-gray-100">
-      <th class="py-3 px-4 text-left">Student Name</th>
-      <th class="py-3 px-4 text-left">ID</th>
-      <th class="py-3 px-4 text-left">Course</th>
-      <th class="py-3 px-4 text-left">Status</th>
-      <th class="py-3 px-4 text-left">Documents</th>
-      <th class="py-3 px-4 text-left">Actions</th> <!-- 👈 New -->
-    </tr>
-  </thead>
-  <tbody>
-    {% for student in students %}
-    <tr class="border-b">
-      <td class="py-3 px-4 font-bold">{{ student.name }}</td>
-      <td class="py-3 px-4">{{ student.student_id }}</td>
-      <td class="py-3 px-4">{{ student.course }}</td>
-      <td class="py-3 px-4">
-        <span class="bg-approved bg-opacity-20 text-approved text-xs px-2 py-1 rounded-full">{{ student.status }}</span>
-      </td>
-      <td class="py-3 px-4">
-  {% if student.documents %}
-    <div class="flex flex-wrap gap-2">
-      {% for doc in student.documents %}
-        <div class="bg-gray-100 border border-gray-300 rounded-lg px-3 py-2 flex items-center space-x-2 hover:shadow-md transition">
-          <i class="fas fa-file-alt text-primary"></i>
-          <a href="{{ url_for('static', filename='uploads/' ~ doc.filename) }}" 
-             target="_blank" 
-             class="text-sm font-medium text-primary hover:underline">
-            {{ doc.doc_name }}
-          </a>
-        </div>
-      {% endfor %}
-    </div>
-  {% else %}
-    <span class="text-gray-500 italic">No documents uploaded</span>
-  {% endif %}
-</td>
-
-
-      <!-- 👇 Remove button -->
-      <td class="py-3 px-4">
-        <form action="{{ url_for('remove_student', email=student.email) }}" method="POST" style="display:inline;">
-          <button type="submit" class="text-red-600 hover:text-red-800">
-            <i class="fas fa-trash"></i> Remove
-          </button>
-        </form>
-      </td>
-    </tr>
-    {% endfor %}
-  </tbody>
-</table>
-
-
-    </div>
-  </div>
-</section>
-
-
-        <!-- Grading Section -->
-        <section id="grading" class="content-section hidden">
-          <div class="bg-white rounded-xl shadow-md p-6 card-hover">
-            <h2 class="text-xl font-heading font-bold mb-6">Assignment Grading</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-              <div class="bg-gray-50 p-4 rounded-lg">
-                <h3 class="font-medium mb-3">Pending Grading</h3>
-                <div class="flex items-end mb-2">
-                  <span class="text-3xl font-bold text-primary">12</span>
-                  <span class="ml-2 text-warning">assignments</span>
-                </div>
-                <p class="text-sm text-gray-500">Waiting for your evaluation</p>
-              </div>
-              
-              <div class="bg-gray-50 p-4 rounded-lg">
-                <h3 class="font-medium mb-3">Graded This Week</h3>
-                <div class="flex items-end mb-2">
-                  <span class="text-3xl font-bold text-success">24</span>
-                  <span class="ml-2 text-approved">assignments</span>
-                </div>
-                <p class="text-sm text-gray-500">Completed evaluations</p>
-              </div>
-            </div>
-            
-            <h3 class="font-medium mb-4">Recent Submissions</h3>
-            <div class="overflow-x-auto">
-              <table class="w-full">
-                <thead>
-                  <tr class="bg-gray-100">
-                    <th class="py-3 px-4 text-left">Assignment</th>
-                    <th class="py-3 px-4 text-left">Course</th>
-                    <th class="py-3 px-4 text-left">Student</th>
-                    <th class="py-3 px-4 text-left">Submitted</th>
-                    <th class="py-3 px-4 text-left">Status</th>
-                    <th class="py-3 px-4 text-left">Action</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  <tr class="border-b">
-                    <td class="py-3 px-4">JavaScript Project</td>
-                    <td class="py-3 px-4">Web Technology</td>
-                    <td class="py-3 px-4">John Smith</td>
-                    <td class="py-3 px-4">2 hours ago</td>
-                    <td class="py-3 px-4"><span class="bg-pending bg-opacity-20 text-pending text-xs px-2 py-1 rounded-full">Pending</span></td>
-                    <td class="py-3 px-4">
-                      <button class="submit-btn px-3 py-1 rounded text-sm">Grade</button>
-                    </td>
-                  </tr>
-                  <tr class="border-b">
-                    <td class="py-3 px-4">Binary Trees Exercise</td>
-                    <td class="py-3 px-4">Data Structures</td>
-                    <td class="py-3 px-4">Emma Johnson</td>
-                    <td class="py-3 px-4">5 hours ago</td>
-                    <td class="py-3 px-4"><span class="bg-pending bg-opacity-20 text-pending text-xs px-2 py-1 rounded-full">Pending</span></td>
-                    <td class="py-3 px-4">
-                      <button class="submit-btn px-3 py-1 rounded text-sm">Grade</button>
-                    </td>
-                  </tr>
-                  <tr class="border-b">
-                    <td class="py-3 px-4">HTML/CSS Lab</td>
-                    <td class="py-3 px-4">Web Technology</td>
-                    <td class="py-3 px-4">Michael Brown</td>
-                    <td class="py-3 px-4">Yesterday</td>
-                    <td class="py-3 px-4"><span class="bg-pending bg-opacity-20 text-pending text-xs px-2 py-1 rounded-full">Pending</span></td>
-                    <td class="py-3 px-4">
-                      <button class="submit-btn px-3 py-1 rounded text-sm">Grade</button>
-                    </td>
-                  </tr>
-                  <tr>
-                    <td class="py-3 px-4">Sorting Algorithms</td>
-                    <td class="py-3 px-4">Data Structures</td>
-                    <td class="py-3 px-4">Sarah Williams</td>
-                    <td class="py-3 px-4">2 days ago</td>
-                    <td class="py-3 px-4"><span class="bg-pending bg-opacity-20 text-pending text-xs px-2 py-1 rounded-full">Pending</span></td>
-                    <td class="py-3 px-4">
-                      <button class="submit-btn px-3 py-1 rounded text-sm">Grade</button>
-                    </td>
-                  </tr>
-                </tbody>
-              </table>
-            </div>
-          </div>
-        </section>
-
-        <!-- Analytics Section -->
-        <!-- Analytics Section -->
-<section id="analytics" class="content-section hidden">
-  <div class="bg-white rounded-xl shadow-md p-6 card-hover">
-    <h2 class="text-xl font-heading font-bold mb-6">Course Analytics</h2>
-    
-    <!-- Top Stats -->
-    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-      <div class="bg-primary bg-opacity-10 p-6 rounded-xl shadow-md text-center hover:shadow-lg transition">
-        <i class="fas fa-chart-line text-primary text-3xl mb-3"></i>
-        <h3 class="text-lg font-semibold">Average Performance</h3>
-        <p class="text-2xl font-bold text-primary">84.5%</p>
-      </div>
-      <div class="bg-secondary bg-opacity-10 p-6 rounded-xl shadow-md text-center hover:shadow-lg transition">
-        <i class="fas fa-users text-secondary text-3xl mb-3"></i>
-        <h3 class="text-lg font-semibold">Attendance</h3>
-        <p class="text-2xl font-bold text-secondary">92.3%</p>
-      </div>
-      <div class="bg-warning bg-opacity-10 p-6 rounded-xl shadow-md text-center hover:shadow-lg transition">
-        <i class="fas fa-tasks text-warning text-3xl mb-3"></i>
-        <h3 class="text-lg font-semibold">Completion</h3>
-        <p class="text-2xl font-bold text-warning">78.9%</p>
-      </div>
-    </div>
-
-    <!-- Chart Area -->
-    <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
-      <div class="bg-gray-50 p-6 rounded-xl shadow-md">
-        <h3 class="font-medium mb-3">Performance Overview</h3>
-        <canvas id="performanceChart" height="200"></canvas>
-      </div>
       
-      <div class="bg-gray-50 p-6 rounded-xl shadow-md">
-        <h3 class="font-medium mb-3">Grade Distribution</h3>
-        <canvas id="gradeChart" height="200"></canvas>
-      </div>
     </div>
+  </section>
 
-    <!-- 📊 New Detailed Insights -->
+
+          <!-- Grading Section -->
+          <section id="grading" class="content-section hidden">
+            <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+              <h2 class="text-xl font-heading font-bold mb-6">Assignment Grading</h2>
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+                <div class="bg-gray-50 p-4 rounded-lg">
+                  <h3 class="font-medium mb-3">Pending Grading</h3>
+                  <div class="flex items-end mb-2">
+                    <span class="text-3xl font-bold text-primary">12</span>
+                    <span class="ml-2 text-warning">assignments</span>
+                  </div>
+                  <p class="text-sm text-gray-500">Waiting for your evaluation</p>
+                </div>
+                
+                <div class="bg-gray-50 p-4 rounded-lg">
+                  <h3 class="font-medium mb-3">Graded This Week</h3>
+                  <div class="flex items-end mb-2">
+                    <span class="text-3xl font-bold text-success">24</span>
+                    <span class="ml-2 text-approved">assignments</span>
+                  </div>
+                  <p class="text-sm text-gray-500">Completed evaluations</p>
+                </div>
+              </div>
+              
+              <h3 class="font-medium mb-4">Recent Submissions</h3>
+              <div class="overflow-x-auto">
+                <table class="w-full">
+                  <thead>
+                    <tr class="bg-gray-100">
+                      <th class="py-3 px-4 text-left">Assignment</th>
+                      <th class="py-3 px-4 text-left">Course</th>
+                      <th class="py-3 px-4 text-left">Student</th>
+                      <th class="py-3 px-4 text-left">Submitted</th>
+                      <th class="py-3 px-4 text-left">Status</th>
+                      <th class="py-3 px-4 text-left">Action</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    <tr class="border-b">
+                      <td class="py-3 px-4">JavaScript Project</td>
+                      <td class="py-3 px-4">Web Technology</td>
+                      <td class="py-3 px-4">John Smith</td>
+                      <td class="py-3 px-4">2 hours ago</td>
+                      <td class="py-3 px-4"><span class="bg-pending bg-opacity-20 text-pending text-xs px-2 py-1 rounded-full">Pending</span></td>
+                      <td class="py-3 px-4">
+                        <button class="submit-btn px-3 py-1 rounded text-sm">Grade</button>
+                      </td>
+                    </tr>
+                    <tr class="border-b">
+                      <td class="py-3 px-4">Binary Trees Exercise</td>
+                      <td class="py-3 px-4">Data Structures</td>
+                      <td class="py-3 px-4">Emma Johnson</td>
+                      <td class="py-3 px-4">5 hours ago</td>
+                      <td class="py-3 px-4"><span class="bg-pending bg-opacity-20 text-pending text-xs px-2 py-1 rounded-full">Pending</span></td>
+                      <td class="py-3 px-4">
+                        <button class="submit-btn px-3 py-1 rounded text-sm">Grade</button>
+                      </td>
+                    </tr>
+                    <tr class="border-b">
+                      <td class="py-3 px-4">HTML/CSS Lab</td>
+                      <td class="py-3 px-4">Web Technology</td>
+                      <td class="py-3 px-4">Michael Brown</td>
+                      <td class="py-3 px-4">Yesterday</td>
+                      <td class="py-3 px-4"><span class="bg-pending bg-opacity-20 text-pending text-xs px-2 py-1 rounded-full">Pending</span></td>
+                      <td class="py-3 px-4">
+                        <button class="submit-btn px-3 py-1 rounded text-sm">Grade</button>
+                      </td>
+                    </tr>
+                    <tr>
+                      <td class="py-3 px-4">Sorting Algorithms</td>
+                      <td class="py-3 px-4">Data Structures</td>
+                      <td class="py-3 px-4">Sarah Williams</td>
+                      <td class="py-3 px-4">2 days ago</td>
+                      <td class="py-3 px-4"><span class="bg-pending bg-opacity-20 text-pending text-xs px-2 py-1 rounded-full">Pending</span></td>
+                      <td class="py-3 px-4">
+                        <button class="submit-btn px-3 py-1 rounded text-sm">Grade</button>
+                      </td>
+                    </tr>
+                  </tbody>
+                </table>
+              </div>
+            </div>
+          </section>
+
+          <!-- Analytics Section -->
+          <!-- Analytics Section -->
+  <section id="analytics" class="content-section hidden">
     <div class="bg-white rounded-xl shadow-md p-6 card-hover">
-      <h3 class="text-xl font-heading font-bold mb-6">Detailed Insights</h3>
+      <h2 class="text-xl font-heading font-bold mb-6">Course Analytics</h2>
       
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <!-- Pie Chart Card -->
-        <div class="bg-gray-50 p-6 rounded-xl shadow-md">
-          <h4 class="font-medium mb-3">Student Engagement</h4>
-          <canvas id="engagementChart" height="220"></canvas>
+      <!-- Top Stats -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+        <div class="bg-primary bg-opacity-10 p-6 rounded-xl shadow-md text-center hover:shadow-lg transition">
+          <i class="fas fa-chart-line text-primary text-3xl mb-3"></i>
+          <h3 class="text-lg font-semibold">Average Performance</h3>
+          <p class="text-2xl font-bold text-primary">84.5%</p>
         </div>
+        <div class="bg-secondary bg-opacity-10 p-6 rounded-xl shadow-md text-center hover:shadow-lg transition">
+          <i class="fas fa-users text-secondary text-3xl mb-3"></i>
+          <h3 class="text-lg font-semibold">Attendance</h3>
+          <p class="text-2xl font-bold text-secondary">92.3%</p>
+        </div>
+        <div class="bg-warning bg-opacity-10 p-6 rounded-xl shadow-md text-center hover:shadow-lg transition">
+          <i class="fas fa-tasks text-warning text-3xl mb-3"></i>
+          <h3 class="text-lg font-semibold">Completion</h3>
+          <p class="text-2xl font-bold text-warning">78.9%</p>
+        </div>
+      </div>
 
-        <!-- Insight Cards -->
-        <div class="space-y-4">
-          <div class="bg-primary bg-opacity-10 p-4 rounded-lg flex items-center justify-between shadow-md hover:shadow-lg transition">
-            <span class="font-medium">Highly Engaged Students</span>
-            <span class="text-primary font-bold">65%</span>
+      <!-- Chart Area -->
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8">
+        <div class="bg-gray-50 p-6 rounded-xl shadow-md">
+          <h3 class="font-medium mb-3">Performance Overview</h3>
+          <canvas id="performanceChart" height="200"></canvas>
+        </div>
+        
+        <div class="bg-gray-50 p-6 rounded-xl shadow-md">
+          <h3 class="font-medium mb-3">Grade Distribution</h3>
+          <canvas id="gradeChart" height="200"></canvas>
+        </div>
+      </div>
+
+      <!-- 📊 New Detailed Insights -->
+      <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+        <h3 class="text-xl font-heading font-bold mb-6">Detailed Insights</h3>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Pie Chart Card -->
+          <div class="bg-gray-50 p-6 rounded-xl shadow-md">
+            <h4 class="font-medium mb-3">Student Engagement</h4>
+            <canvas id="engagementChart" height="220"></canvas>
           </div>
-          <div class="bg-warning bg-opacity-10 p-4 rounded-lg flex items-center justify-between shadow-md hover:shadow-lg transition">
-            <span class="font-medium">Moderately Engaged</span>
-            <span class="text-warning font-bold">25%</span>
-          </div>
-          <div class="bg-secondary bg-opacity-10 p-4 rounded-lg flex items-center justify-between shadow-md hover:shadow-lg transition">
-            <span class="font-medium">Low Engagement</span>
-            <span class="text-secondary font-bold">10%</span>
+
+          <!-- Insight Cards -->
+          <div class="space-y-4">
+            <div class="bg-primary bg-opacity-10 p-4 rounded-lg flex items-center justify-between shadow-md hover:shadow-lg transition">
+              <span class="font-medium">Highly Engaged Students</span>
+              <span class="text-primary font-bold">65%</span>
+            </div>
+            <div class="bg-warning bg-opacity-10 p-4 rounded-lg flex items-center justify-between shadow-md hover:shadow-lg transition">
+              <span class="font-medium">Moderately Engaged</span>
+              <span class="text-warning font-bold">25%</span>
+            </div>
+            <div class="bg-secondary bg-opacity-10 p-4 rounded-lg flex items-center justify-between shadow-md hover:shadow-lg transition">
+              <span class="font-medium">Low Engagement</span>
+              <span class="text-secondary font-bold">10%</span>
+            </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
 
-        <!-- Settings Section -->
-        <section id="settings" class="content-section hidden">
-          <div class="bg-white rounded-xl shadow-md p-6 card-hover">
-            <h2 class="text-xl font-heading font-bold mb-6">Account Settings</h2>
-            
-            <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
-              <div class="md:col-span-2">
-                <h3 class="font-medium mb-4">Profile Information</h3>
+          <!-- Settings Section -->
+          <section id="settings" class="content-section hidden">
+            <div class="bg-white rounded-xl shadow-md p-6 card-hover">
+              <h2 class="text-xl font-heading font-bold mb-6">Account Settings</h2>
+              
+              <div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-8">
+                <div class="md:col-span-2">
+                  <h3 class="font-medium mb-4">Profile Information</h3>
+                  
+                  <div class="space-y-4">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
+                      <input type="text" value="Professor Faculty" class="w-full border px-4 py-2 rounded-lg focus:ring-2 focus:ring-primary">
+                    </div>
+                    
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
+                      <input type="email" value="prof.faculty@university.edu" class="w-full border px-4 py-2 rounded-lg focus:ring-2 focus:ring-primary">
+                    </div>
+                    
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Department</label>
+                      <input type="text" value="Computer Science" class="w-full border px-4 py-2 rounded-lg focus:ring-2 focus:ring-primary">
+                    </div>
+                    
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Office Location</label>
+                      <input type="text" value="Building A, Room 205" class="w-full border px-4 py-2 rounded-lg focus:ring-2 focus:ring-primary">
+                    </div>
+                    
+                    <button class="submit-btn">
+                      Save Changes
+                    </button>
+                  </div>
+                </div>
                 
-                <div class="space-y-4">
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Full Name</label>
-                    <input type="text" value="Professor Faculty" class="w-full border px-4 py-2 rounded-lg focus:ring-2 focus:ring-primary">
-                  </div>
+                <div>
+                  <h3 class="font-medium mb-4">Security</h3>
                   
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Email Address</label>
-                    <input type="email" value="prof.faculty@university.edu" class="w-full border px-4 py-2 rounded-lg focus:ring-2 focus:ring-primary">
+                  <div class="space-y-4">
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Current Password</label>
+                      <input type="password" class="w-full border px-4 py-2 rounded-lg focus:ring-2 focus:ring-primary">
+                    </div>
+                    
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">New Password</label>
+                      <input type="password" class="w-full border px-4 py-2 rounded-lg focus:ring-2 focus:ring-primary">
+                    </div>
+                    
+                    <div>
+                      <label class="block text-sm font-medium text-gray-700 mb-1">Confirm New Password</label>
+                      <input type="password" class="w-full border px-4 py-2 rounded-lg focus:ring-2 focus:ring-primary">
+                    </div>
+                    
+                    <button class="submit-btn">
+                      Update Password
+                    </button>
                   </div>
-                  
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Department</label>
-                    <input type="text" value="Computer Science" class="w-full border px-4 py-2 rounded-lg focus:ring-2 focus:ring-primary">
-                  </div>
-                  
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Office Location</label>
-                    <input type="text" value="Building A, Room 205" class="w-full border px-4 py-2 rounded-lg focus:ring-2 focus:ring-primary">
-                  </div>
-                  
-                  <button class="submit-btn">
-                    Save Changes
-                  </button>
                 </div>
               </div>
               
-              <div>
-                <h3 class="font-medium mb-4">Security</h3>
+              <h3 class="font-medium mb-4">Notification Preferences</h3>
+              <div class="space-y-3">
+                <div class="flex items-center">
+                  <input type="checkbox" id="emailNotifications" class="mr-2 h-4 w-4 text-primary focus:ring-primary" checked>
+                  <label for="emailNotifications">Email Notifications</label>
+                </div>
                 
-                <div class="space-y-4">
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Current Password</label>
-                    <input type="password" class="w-full border px-4 py-2 rounded-lg focus:ring-2 focus:ring-primary">
-                  </div>
-                  
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">New Password</label>
-                    <input type="password" class="w-full border px-4 py-2 rounded-lg focus:ring-2 focus:ring-primary">
-                  </div>
-                  
-                  <div>
-                    <label class="block text-sm font-medium text-gray-700 mb-1">Confirm New Password</label>
-                    <input type="password" class="w-full border px-4 py-2 rounded-lg focus:ring-2 focus:ring-primary">
-                  </div>
-                  
-                  <button class="submit-btn">
-                    Update Password
-                  </button>
+                <div class="flex items-center">
+                  <input type="checkbox" id="assignmentSubmissions" class="mr-2 h-4 w-4 text-primary focus:ring-primary" checked>
+                  <label for="assignmentSubmissions">New Assignment Submissions</label>
+                </div>
+                
+                <div class="flex items-center">
+                  <input type="checkbox" id="meetingReminders" class="mr-2 h-4 w-4 text-primary focus:ring-primary" checked>
+                  <label for="meetingReminders">Meeting Reminders</label>
+                </div>
+                
+                <div class="flex items-center">
+                  <input type="checkbox" id="announcements" class="mr-2 h-4 w-4 text-primary focus:ring-primary" checked>
+                  <label for="announcements">University Announcements</label>
                 </div>
               </div>
             </div>
-            
-            <h3 class="font-medium mb-4">Notification Preferences</h3>
-            <div class="space-y-3">
-              <div class="flex items-center">
-                <input type="checkbox" id="emailNotifications" class="mr-2 h-4 w-4 text-primary focus:ring-primary" checked>
-                <label for="emailNotifications">Email Notifications</label>
-              </div>
-              
-              <div class="flex items-center">
-                <input type="checkbox" id="assignmentSubmissions" class="mr-2 h-4 w-4 text-primary focus:ring-primary" checked>
-                <label for="assignmentSubmissions">New Assignment Submissions</label>
-              </div>
-              
-              <div class="flex items-center">
-                <input type="checkbox" id="meetingReminders" class="mr-2 h-4 w-4 text-primary focus:ring-primary" checked>
-                <label for="meetingReminders">Meeting Reminders</label>
-              </div>
-              
-              <div class="flex items-center">
-                <input type="checkbox" id="announcements" class="mr-2 h-4 w-4 text-primary focus:ring-primary" checked>
-                <label for="announcements">University Announcements</label>
-              </div>
-            </div>
-          </div>
-        </section>
-      </main>
+          </section>
+        </main>
+      </div>
     </div>
-  </div>
 
-  <!-- External JavaScript -->
-  <script src="script.js"></script>
-  <script>
-  // Get all sidebar buttons and content sections
-  const buttons = document.querySelectorAll(".sidebar-btn");
-  const sections = document.querySelectorAll(".content-section");
+    <!-- External JavaScript -->
+    <script src="script.js"></script>
+    <script>
+    // Get all sidebar buttons and content sections
+    const buttons = document.querySelectorAll(".sidebar-btn");
+    const sections = document.querySelectorAll(".content-section");
 
-  buttons.forEach(button => {
-    button.addEventListener("click", () => {
-      // Hide all sections
-      sections.forEach(section => section.classList.add("hidden"));
+    buttons.forEach(button => {
+      button.addEventListener("click", () => {
+        // Hide all sections
+        sections.forEach(section => section.classList.add("hidden"));
 
-      // Remove active class from all buttons
-      buttons.forEach(btn => btn.classList.remove("active", "bg-primary", "text-white"));
+        // Remove active class from all buttons
+        buttons.forEach(btn => btn.classList.remove("active", "bg-primary", "text-white"));
 
-      // Show the clicked section
-      const sectionId = button.getAttribute("data-section");
-      document.getElementById(sectionId).classList.remove("hidden");
+        // Show the clicked section
+        const sectionId = button.getAttribute("data-section");
+        document.getElementById(sectionId).classList.remove("hidden");
 
-      // Highlight the active button
-      button.classList.add("active", "bg-primary", "text-white");
+        // Highlight the active button
+        button.classList.add("active", "bg-primary", "text-white");
+      });
     });
-  });
-</script>
-<script>
-  // Engagement Pie Chart
-  const ctxEngagement = document.getElementById('engagementChart').getContext('2d');
-  new Chart(ctxEngagement, {
-    type: 'pie',
-    data: {
-      labels: ['Highly Engaged', 'Moderately Engaged', 'Low Engagement'],
-      datasets: [{
-        data: [65, 25, 10],
-        backgroundColor: ['#3b82f6', '#f59e0b', '#10b981'], // blue, yellow, green
-        borderWidth: 1
-      }]
-    },
-    options: {
-      responsive: true,
-      plugins: {
-        legend: {
-          position: 'bottom'
+  </script>
+  <script>
+    // Engagement Pie Chart
+    const ctxEngagement = document.getElementById('engagementChart').getContext('2d');
+    new Chart(ctxEngagement, {
+      type: 'pie',
+      data: {
+        labels: ['Highly Engaged', 'Moderately Engaged', 'Low Engagement'],
+        datasets: [{
+          data: [65, 25, 10],
+          backgroundColor: ['#3b82f6', '#f59e0b', '#10b981'], // blue, yellow, green
+          borderWidth: 1
+        }]
+      },
+      options: {
+        responsive: true,
+        plugins: {
+          legend: {
+            position: 'bottom'
+          }
         }
       }
-    }
-  });
-</script>
+    });
+  </script>
 
 
-  
+    
 
-</body>
-</html>
+  </body>
+  </html>
